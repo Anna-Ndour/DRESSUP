@@ -3,3 +3,9 @@ node_modules
 dist
 build
 .DS_Store
+.postman
+utils
+postman
+index.html
+public
+dist

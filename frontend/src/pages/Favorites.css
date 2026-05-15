@@ -1,0 +1,107 @@
+/* Favorites Page Styles */
+.favorites-page {
+  min-height: calc(100vh - 80px);
+  background-color: #fafafa;
+  padding: 40px 20px;
+}
+
+.favorites-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.favorites-container h1 {
+  color: #4a4a4a;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.favorites-subtitle {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+.no-favorites {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.no-favorites p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.browse-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #f8c8dc;
+  color: #4a4a4a;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.browse-btn:hover {
+  background-color: #e8b4d0;
+}
+
+.favorites-count {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.favorite-card-wrapper {
+  position: relative;
+}
+
+.remove-favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #d32f2f;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.remove-favorite-btn:hover {
+  background-color: #ffe0e0;
+  transform: scale(1.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+}
