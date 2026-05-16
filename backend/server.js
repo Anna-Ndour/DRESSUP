@@ -25,7 +25,11 @@ const io = new Server(server, {
 socketServer(io);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:3000", "https://dressup-frontend.vercel.app", "https://dressup.vercel.app"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 // API Routes
