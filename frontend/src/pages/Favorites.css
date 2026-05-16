@@ -1,73 +1,83 @@
-/* Favorites Page Styles */
+
 .favorites-page {
   min-height: calc(100vh - 80px);
-  background-color: #fafafa;
+  background: linear-gradient(180deg, #f8c8dc 0%, #ffe8f0 50%, #f8c8dc 100%);
   padding: 40px 20px;
+  padding-top: 80px;
 }
 
 .favorites-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .favorites-container h1 {
   color: #4a4a4a;
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 }
 
 .favorites-subtitle {
-  color: #666;
-  margin-bottom: 30px;
-  font-size: 14px;
+  color: #999;
+  margin-bottom: 35px;
+  font-size: 15px;
 }
 
 .loading {
   text-align: center;
-  padding: 40px;
+  padding: 60px 20px;
   color: #666;
   font-size: 16px;
 }
 
 .no-favorites {
   text-align: center;
-  padding: 60px 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 80px 30px;
+  background: linear-gradient(145deg, #fff4b5 0%, #fff9db 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(255, 244, 181, 0.3);
+  border: 2px solid #ffe082;
 }
 
 .no-favorites p {
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 16px;
 }
 
 .browse-btn {
   display: inline-block;
-  padding: 12px 24px;
-  background-color: #f8c8dc;
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
   color: #4a4a4a;
   text-decoration: none;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: background-color 0.3s;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(255, 244, 181, 0.5);
+  border: 2px solid #ffe082;
 }
 
 .browse-btn:hover {
-  background-color: #e8b4d0;
+  background: linear-gradient(135deg, #ffe082 0%, #fff4b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 224, 130, 0.6);
 }
 
 .favorites-count {
   color: #666;
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-weight: 500;
 }
 
 .favorites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
 }
 
 .favorite-card-wrapper {
@@ -76,26 +86,27 @@
 
 .remove-favorite-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  border: none;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #ffcdd2;
   border-radius: 50%;
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #fff0f0 0%, #ffe8e8 100%);
   color: #d32f2f;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(255, 192, 203, 0.4);
   transition: all 0.3s;
+  z-index: 10;
 }
 
 .remove-favorite-btn:hover {
-  background-color: #ffe0e0;
-  transform: scale(1.1);
+  background: linear-gradient(135deg, #ffcdd2 0%, #ffbaba 100%);
+  transform: scale(1.15);
 }
 
 /* Mobile Responsive */

@@ -2,13 +2,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { authAPI } from "../services/api";
 import { initSocket, disconnectSocket } from "../services/socket";
 
-// Create Auth Context
+//Auth Context
 const AuthContext = createContext(null);
 
-/**
- * AuthProvider - Provides authentication state and methods to all components
- * Manages user session using localStorage and JWT tokens
- */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,17 +38,11 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  /**
-   * Register a new user
-   */
   const register = async (userData) => {
     const response = await authAPI.register(userData);
     return response.data;
   };
 
-  /**
-   * Login user and store JWT token
-   */
   const login = async (credentials) => {
     const response = await authAPI.login(credentials);
     const { token, user } = response.data;
@@ -70,9 +60,7 @@ export const AuthProvider = ({ children }) => {
     return user;
   };
 
-  /**
-   * Logout user and clear session
-   */
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -80,9 +68,6 @@ export const AuthProvider = ({ children }) => {
     disconnectSocket();
   };
 
-  /**
-   * Check if user is authenticated
-   */
   const isAuthenticated = () => !!user;
 
   // Context value with user state and auth methods
@@ -102,9 +87,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-/**
- * Custom hook to use AuthContext
- */
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

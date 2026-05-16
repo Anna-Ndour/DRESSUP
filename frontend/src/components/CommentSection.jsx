@@ -3,19 +3,13 @@ import { useAuth } from "../context/AuthContext";
 import { commentsAPI } from "../services/api";
 import "./CommentSection.css";
 
-/**
- * CommentSection Component
- * Displays and allows adding comments on a product
- */
+//Displays and manages comments for a product
 const CommentSection = ({ productId }) => {
   const { user, isAuthenticated } = useAuth();
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(false);
 
-  /**
-   * Fetch comments for the product
-   */
   useEffect(() => {
     fetchComments();
   }, [productId]);
@@ -29,9 +23,6 @@ const CommentSection = ({ productId }) => {
     }
   };
 
-  /**
-   * Handle adding a new comment
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
@@ -49,7 +40,6 @@ const CommentSection = ({ productId }) => {
         content: newComment.trim()
       });
 
-      // Refresh comments
       fetchComments();
       setNewComment("");
     } catch (error) {
@@ -63,7 +53,6 @@ const CommentSection = ({ productId }) => {
     <div className="comment-section">
       <h2>Comments ({comments.length})</h2>
 
-      {/* Comment List */}
       <div className="comments-list">
         {comments.length === 0 ? (
           <p className="no-comments">No comments yet. Be the first to comment!</p>
@@ -89,7 +78,6 @@ const CommentSection = ({ productId }) => {
         )}
       </div>
 
-      {/* Comment Form */}
       <form onSubmit={handleSubmit} className="comment-form">
         <textarea
           value={newComment}

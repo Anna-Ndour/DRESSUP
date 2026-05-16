@@ -1,11 +1,13 @@
-/* Navbar Styles */
+
 .navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 12px 24px;
+  background: linear-gradient(180deg, #ffffff 0%, #fff8fc 100%);
+  box-shadow: 0 4px 16px rgba(248, 200, 220, 0.25);
+  padding: 16px 24px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(248, 200, 220, 0.3);
 }
 
 .navbar-container {
@@ -14,14 +16,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 24px;
 }
 
 .navbar-logo {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 700;
   color: #4a4a4a;
   text-decoration: none;
+  letter-spacing: -0.5px;
+  transition: color 0.3s;
 }
 
 .navbar-logo:hover {
@@ -30,21 +34,24 @@
 
 .navbar-search {
   flex: 1;
-  max-width: 400px;
+  max-width: 450px;
 }
 
-.search-input {
+.navbar-search .search-input {
   width: 100%;
-  padding: 10px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
+  padding: 12px 20px;
+  border: 2px solid #e8e8e8;
+  border-radius: 14px;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
+  background-color: #fafafa;
 }
 
-.search-input:focus {
+.navbar-search .search-input:focus {
   border-color: #f8c8dc;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(248, 200, 220, 0.2);
 }
 
 .navbar-links {
@@ -54,37 +61,45 @@
 }
 
 .nav-btn {
-  padding: 8px 16px;
+  padding: 10px 18px;
   border: none;
   border-radius: 12px;
   background-color: transparent;
   color: #4a4a4a;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .nav-btn:hover {
   background-color: #fff4b5;
+  transform: translateY(-1px);
 }
 
 .nav-btn-primary {
-  background-color: #f8c8dc;
+  background: linear-gradient(135deg, #f8c8dc 0%, #ffe8f0 100%);
   color: #4a4a4a;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(248, 200, 220, 0.4);
 }
 
 .nav-btn-primary:hover {
-  background-color: #e8b4d0;
+  background: linear-gradient(135deg, #e8b4d0 0%, #ffd4e8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(248, 200, 220, 0.6);
 }
 
 .nav-btn-outline {
   border: 2px solid #f8c8dc;
-  background-color: transparent;
+  background: linear-gradient(135deg, #fff8fa 0%, #fff4b520 100%);
 }
 
 .nav-btn-outline:hover {
-  background-color: #f8c8dc;
+  background: linear-gradient(135deg, #f8c8dc 0%, #ffe8f0 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(248, 200, 220, 0.4);
 }
 
 /* Mobile Responsive */

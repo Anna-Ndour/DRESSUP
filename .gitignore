@@ -1,11 +1,9 @@
 node_modules
 .env
-dist
-build
-.DS_Store
-.postman
+vercel.json
+DEPLOYMENT.md
+vite.config.js
 utils
-postman
-index.html
+assets
 public
 dist

@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { productsAPI, commentsAPI, favoritesAPI } from "../services/api";
 import CommentSection from "../components/CommentSection";
+import BuyNowModal from "../components/BuyNowModal";
 import "./ProductDetails.css";
 
-/**
- * Product Details Page
- * Shows full product information, seller details, comments, and actions
- */
 const ProductDetails = () => {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
 
@@ -18,10 +16,16 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [error, setError] = useState("");
+  const [showBuyModal, setShowBuyModal] = useState(false);
 
-  /**
-   * Fetch product details on mount
-   */
+  const sellerIdFromUrl = searchParams.get("contact");
+
+  useEffect(() => {
+    if (sellerIdFromUrl && product && isAuthenticated()) {
+      navigate(`/messages?contact=${sellerIdFromUrl}`, { replace: true });
+    }
+  }, [sellerIdFromUrl, product, isAuthenticated]);
+
   useEffect(() => {
     fetchProduct();
   }, [id]);
@@ -39,9 +43,6 @@ const ProductDetails = () => {
     }
   };
 
-  /**
-   * Check if product is in user's favorites
-   */
   useEffect(() => {
     if (isAuthenticated() && product) {
       checkFavorite();
@@ -58,9 +59,6 @@ const ProductDetails = () => {
     }
   };
 
-  /**
-   * Toggle favorite status
-   */
   const handleFavorite = async () => {
     if (!isAuthenticated()) {
       navigate("/login");
@@ -80,9 +78,6 @@ const ProductDetails = () => {
     }
   };
 
-  /**
-   * Delete product (seller only)
-   */
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this product?")) {
       return;
@@ -93,6 +88,24 @@ const ProductDetails = () => {
       navigate("/");
     } catch (error) {
       console.error("Error deleting product:", error);
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (!isAuthenticated()) {
+      navigate("/login");
+      return;
+    }
+    setShowBuyModal(true);
+  };
+
+  const handleContactSeller = () => {
+    if (!isAuthenticated()) {
+      navigate("/login");
+      return;
+    }
+    if (product?.seller) {
+      navigate(`/messages?contact=${product.seller._id}`);
     }
   };
 
@@ -109,13 +122,13 @@ const ProductDetails = () => {
   return (
     <div className="product-details">
       <div className="product-details-container">
-        {/* Back Button */}
+
         <Link to="/" className="back-btn">
           ← Back to Products
         </Link>
 
         <div className="product-details-content">
-          {/* Product Image */}
+
           <div className="product-image-section">
             <img
               src={product.image || "https://via.placeholder.com/500"}
@@ -124,7 +137,6 @@ const ProductDetails = () => {
             />
           </div>
 
-          {/* Product Info */}
           <div className="product-info-section">
             <h1>{product.title}</h1>
             <p className="product-price">${product.price}</p>
@@ -143,14 +155,30 @@ const ProductDetails = () => {
               <p>{product.description}</p>
             </div>
 
-            {/* Seller Info */}
             <div className="seller-info">
               <h3>Seller</h3>
               <p>{product.seller?.username || "Unknown"}</p>
             </div>
 
-            {/* Action Buttons */}
             <div className="product-actions">
+              {!isSeller && (
+                <>
+                  <button
+                    onClick={handleBuyNow}
+                    className="action-btn buy-now-btn"
+                  >
+                    Buy Now
+                  </button>
+                  
+                  <button
+                    onClick={handleContactSeller}
+                    className="action-btn contact-btn"
+                  >
+                    Contact Seller
+                  </button>
+                </>
+              )}
+              
               <button
                 onClick={handleFavorite}
                 className={`action-btn ${isFavorite ? "favorite-active" : ""}`}
@@ -172,11 +200,21 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Comments Section */}
         <div className="comments-section">
           <CommentSection productId={id} />
         </div>
       </div>
+
+      {showBuyModal && product && (
+        <BuyNowModal
+          product={product}
+          onClose={() => setShowBuyModal(false)}
+          onContactSeller={(sellerId) => {
+            setShowBuyModal(false);
+            navigate(`/messages?contact=${sellerId}`);
+          }}
+        />
+      )}
     </div>
   );
 };

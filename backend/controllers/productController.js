@@ -1,12 +1,9 @@
 const Product = require("../models/Product");
 
-/**
- * Create a new product
- * POST /api/products
- */
+// Create a new product
 exports.createProduct = async (req, res) => {
   try {
-    // seller is attached by authMiddleware
+    // seller attached by authMiddleware
     const productData = {
       ...req.body,
       seller: req.userId
@@ -23,23 +20,33 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-/**
- * Get all products
- * GET /api/products
- */
+// Get products
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate("seller", "username email");
+    const { search, category } = req.query;
+    
+    const query = {};
+    
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } }
+      ];
+    }
+    
+    if (category) {
+      query.category = category;
+    }
+    
+    const products = await Product.find(query).populate("seller", "username email");
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-/**
- * Get a single product by ID
- * GET /api/products/:id
- */
+// Get a single product by ID
 exports.getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate("seller", "username email");
@@ -54,10 +61,7 @@ exports.getProductById = async (req, res) => {
   }
 };
 
-/**
- * Update a product (only the seller can update)
- * PUT /api/products/:id
- */
+// Update a product only the seller 
 exports.updateProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -66,12 +70,10 @@ exports.updateProduct = async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    // Check if user is the seller (ownership protection)
     if (product.seller.toString() !== req.userId) {
       return res.status(403).json({ error: "You can only update your own products" });
     }
 
-    // Update product fields
     const { title, description, price, size, category, image } = req.body;
     
     if (title) product.title = title;
@@ -83,7 +85,6 @@ exports.updateProduct = async (req, res) => {
 
     await product.save();
 
-    // Return updated product with populated seller
     const updatedProduct = await Product.findById(product._id).populate("seller", "username email");
     
     res.json(updatedProduct);
@@ -92,10 +93,7 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-/**
- * Delete a product (only the seller can delete)
- * DELETE /api/products/:id
- */
+// Delete a product only the seller
 exports.deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -104,7 +102,7 @@ exports.deleteProduct = async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    // Check if user is the seller (ownership protection)
+    // Check if user is the seller 
     if (product.seller.toString() !== req.userId) {
       return res.status(403).json({ error: "You can only delete your own products" });
     }

@@ -3,10 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Auth.css";
 
-/**
- * Login Page
- * Allows users to log in with email and password
- */
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -18,9 +14,6 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  /**
-   * Handle input change
-   */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -29,9 +22,6 @@ const Login = () => {
     setError("");
   };
 
-  /**
-   * Handle form submission
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

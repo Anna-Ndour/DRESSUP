@@ -4,10 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import { productsAPI } from "../services/api";
 import "./AddProduct.css";
 
-/**
- * Add Product Page
- * Allows users to create new product listings or edit existing ones
- */
 const AddProduct = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -38,9 +34,6 @@ const AddProduct = () => {
     "Pants"
   ];
 
-  /**
-   * Check if editing existing product
-   */
   useEffect(() => {
     const editId = searchParams.get("edit");
     if (editId) {
@@ -66,9 +59,6 @@ const AddProduct = () => {
     }
   };
 
-  /**
-   * Handle input change
-   */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -77,9 +67,6 @@ const AddProduct = () => {
     setError("");
   };
 
-  /**
-   * Handle form submission
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

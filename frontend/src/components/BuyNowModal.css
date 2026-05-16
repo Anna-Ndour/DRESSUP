@@ -1,0 +1,214 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(248, 200, 220, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #fff4b5 0%, #fff9db 100%);
+  border-radius: 20px;
+  padding: 35px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 12px 48px rgba(255, 244, 181, 0.4);
+  animation: modalSlideIn 0.3s ease;
+  border: 2px solid #ffe082;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #4a4a4a;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.modal-close:hover {
+  background-color: #f5f5f5;
+  transform: rotate(90deg);
+}
+
+.modal-content h2 {
+  color: #4a4a4a;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-right: 50px;
+  letter-spacing: -0.5px;
+}
+
+.modal-product-info {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 24px;
+  padding: 22px;
+  background: linear-gradient(135deg, #fafafa 0%, #fff 100%);
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+}
+
+.modal-product-image {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.modal-product-details {
+  flex: 1;
+}
+
+.modal-product-price {
+  font-size: 26px;
+  font-weight: 700;
+  color: #4a4a4a;
+  margin-bottom: 10px;
+}
+
+.modal-product-details p {
+  color: #666;
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.modal-btn-primary {
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
+  color: #4a4a4a;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(255, 244, 181, 0.5);
+  border: 2px solid #ffe082;
+}
+
+.modal-btn-primary:hover {
+  background: linear-gradient(135deg, #ffe082 0%, #fff4b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 224, 130, 0.6);
+}
+
+.modal-btn-secondary {
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #f8c8dc 0%, #ffe8f0 100%);
+  color: #4a4a4a;
+  border: 2px solid #f8c8dc;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(248, 200, 220, 0.4);
+}
+
+.modal-btn-secondary:hover {
+  background: linear-gradient(135deg, #ffe8f0 0%, #f8c8dc 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(248, 200, 220, 0.5);
+}
+
+.modal-note {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin-top: 18px;
+  font-style: italic;
+}
+
+.modal-success {
+  text-align: center;
+  padding: 25px;
+}
+
+.success-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: #4a4a4a;
+  margin: 0 auto 25px;
+  box-shadow: 0 4px 16px rgba(255, 244, 181, 0.6);
+  border: 3px solid #ffe082;
+}
+
+.modal-success p {
+  color: #666;
+  margin: 12px 0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.modal-success strong {
+  color: #4a4a4a;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+
+  .modal-product-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .modal-btn-primary,
+  .modal-btn-secondary {
+    width: 100%;
+  }
+}

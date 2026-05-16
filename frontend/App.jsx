@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import Navbar from "./src/components/Navbar";
+import Footer from "./src/components/Footer";
 import Home from "./src/pages/Home";
 import Login from "./src/pages/Login";
 import Register from "./src/pages/Register";
@@ -11,10 +12,6 @@ import Favorites from "./src/pages/Favorites";
 import Messages from "./src/pages/Messages";
 import "./src/index.css";
 
-/**
- * Protected Route Component
- * Wraps routes that require authentication
- */
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
@@ -24,22 +21,16 @@ const ProtectedRoute = ({ children }) => {
 
   return isAuthenticated() ? children : <Navigate to="/login" replace />;
 };
-
-/**
- * App Routes - Defines all application routes
- */
+//Routes for the application
 const AppRoutes = () => {
   return (
     <Router>
       <Navbar />
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-
-        {/* Protected Routes */}
         <Route
           path="/profile"
           element={
@@ -73,13 +64,12 @@ const AppRoutes = () => {
           }
         />
       </Routes>
+      <Footer />
     </Router>
   );
 };
 
-/**
- * Main App Component
- */
+//Components of application
 function App() {
   return (
     <AuthProvider>

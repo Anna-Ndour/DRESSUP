@@ -3,10 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Auth.css";
 
-/**
- * Register Page
- * Allows new users to create an account
- */
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -20,9 +16,6 @@ const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  /**
-   * Handle input change
-   */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -31,9 +24,6 @@ const Register = () => {
     setError("");
   };
 
-  /**
-   * Handle form submission
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

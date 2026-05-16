@@ -1,10 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-/**
- * Authentication Middleware
- * Protects routes by verifying JWT token
- * Usage: router.get("/protected", authMiddleware, controller)
- */
+// Authentication Middleware
+// Protects routes by verifying JWT token
+// Usage: router.get("/protected", authMiddleware, controller)
 exports.authMiddleware = (req, res, next) => {
   try {
     // Get token from Authorization header

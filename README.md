@@ -201,6 +201,42 @@ The frontend uses a soft pastel boutique aesthetic:
 - Rounded corners: 12px
 - Soft shadows for depth
 
+## Project Structure Notes
+
+### Important Directories (Do Not Delete)
+
+- **`backend/`** - Contains all server-side code:
+  - `server.js` - Express server with Socket.io integration
+  - `config/db.js` - MongoDB connection
+  - `models/` - Mongoose schemas for User, Product, Comment, Message
+  - `controllers/` - Business logic for all API endpoints
+  - `routes/` - API route definitions
+  - `middleware/` - Authentication middleware
+  - `socket/` - Socket.io event handlers for real-time messaging
+
+- **`frontend/`** - Contains all client-side code:
+  - `App.jsx` - Main app component with routing
+  - `main.jsx` - React entry point
+  - `src/components/` - Reusable UI components (Navbar, ProductCard, etc.)
+  - `src/pages/` - Page components (Home, Login, Profile, etc.)
+  - `src/context/` - AuthContext for global authentication state
+  - `src/services/` - API and Socket.io service layers
+  - `src/index.css` - Global styles with pastel boutique theme
+  - `vite.config.js` - Vite build configuration
+  - `package.json` - Frontend dependencies
+
+### Deleted Directories (Safe to Remove)
+
+The following were removed as they are either:
+- **Build artifacts** (`dist/`) - Generated automatically when running `npm run build`
+- **Unused/empty folders** (`build/`, `public/`, `.postman/`, `postman/`, `utils/`) - Not referenced by the project
+
+These deletions do not affect functionality since:
+- Vite rebuilds `dist/` on every `npm run build`
+- `index.html` lives in `frontend/` root (not a separate `public/` folder)
+- No postman collections exist in the project
+- No custom utils folder is imported anywhere
+
 ## License
 
 MIT

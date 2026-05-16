@@ -4,17 +4,10 @@ import { favoritesAPI, productsAPI } from "../services/api";
 import ProductCard from "../components/ProductCard";
 import "./Favorites.css";
 
-/**
- * Favorites Page
- * Displays all products favorited by the current user
- */
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /**
-   * Fetch user's favorite products
-   */
   useEffect(() => {
     fetchFavorites();
   }, []);
@@ -30,10 +23,7 @@ const Favorites = () => {
       setLoading(false);
     }
   };
-
-  /**
-   * Remove product from favorites
-   */
+  
   const handleRemoveFavorite = async (productId) => {
     try {
       await favoritesAPI.remove(productId);

@@ -1,0 +1,129 @@
+
+.footer {
+  background: linear-gradient(180deg, #ffffff 0%, #fffef5 100%);
+  border-top: 3px solid rgba(248, 200, 220, 0.4);
+  margin-top: 60px;
+  padding: 50px 20px 25px;
+  box-shadow: 0 -4px 20px rgba(248, 200, 220, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f8c8dc 0%, #fff4b5 50%, #f8c8dc 100%);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.footer-section h4 {
+  color: #4a4a4a;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.footer-brand {
+  text-align: left;
+}
+
+.footer-logo {
+  font-size: 32px;
+  font-weight: 800;
+  color: #4a4a4a;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 14px;
+  transition: all 0.3s;
+  background: linear-gradient(135deg, #f8c8dc 0%, #e8b4d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-logo:hover {
+  background: linear-gradient(135deg, #fff4b5 0%, #ffe082 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.05);
+}
+
+.footer-tagline {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #f8c8dc;
+}
+
+.footer-about p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer-bottom p {
+  color: #999;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 20px 15px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .footer-logo {
+    font-size: 24px;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+}

@@ -42,7 +42,6 @@ router.get("/:otherUserId", authMiddleware, async (req, res) => {
   try {
     const { otherUserId } = req.params;
 
-    // Find all messages between current user and the other user
     const messages = await Message.find({
       $or: [
         { senderId: req.userId, receiverId: otherUserId },
@@ -54,6 +53,47 @@ router.get("/:otherUserId", authMiddleware, async (req, res) => {
       .populate("receiverId", "username email");
 
     res.json(messages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/messages/conversations
+ * Get all conversations for current user (protected)
+ */
+router.get("/conversations", authMiddleware, async (req, res) => {
+  try {
+    const messages = await Message.find({
+      $or: [
+        { senderId: req.userId },
+        { receiverId: req.userId }
+      ]
+    })
+      .sort({ createdAt: -1 })
+      .populate("senderId", "username email")
+      .populate("receiverId", "username email");
+
+    const userMap = new Map();
+    
+    messages.forEach((msg) => {
+      const senderId = msg.senderId._id.toString();
+      const receiverId = msg.receiverId._id.toString();
+      
+      const otherUserId = senderId === req.userId ? receiverId : senderId;
+      const otherUser = senderId === req.userId ? msg.receiverId : msg.senderId;
+      
+      if (otherUserId !== req.userId && !userMap.has(otherUserId)) {
+        userMap.set(otherUserId, {
+          _id: otherUserId,
+          username: otherUser.username || "User",
+          lastMessage: msg.content,
+          lastMessageAt: msg.createdAt
+        });
+      }
+    });
+
+    res.json(Array.from(userMap.values()));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

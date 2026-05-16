@@ -1,8 +1,8 @@
-/* Product Details Page Styles */
+
 .loading-page,
 .error-page {
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   font-size: 18px;
   color: #666;
 }
@@ -13,35 +13,46 @@
 
 .product-details {
   min-height: 100vh;
-  background-color: #fafafa;
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
   padding: 20px;
+  padding-top: 30px;
 }
 
 .product-details-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .back-btn {
-  display: inline-block;
-  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
   color: #4a4a4a;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
 }
 
 .back-btn:hover {
   color: #f8c8dc;
+  transform: translateX(-4px);
 }
 
 .product-details-content {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff 0%, #fffef5 100%);
+  border-radius: 24px;
+  padding: 45px;
+  box-shadow: 0 8px 32px rgba(248, 200, 220, 0.2);
   display: flex;
-  gap: 40px;
+  gap: 50px;
   margin-bottom: 30px;
+  border: 2px solid rgba(248, 200, 220, 0.25);
 }
 
 .product-image-section {
@@ -50,8 +61,9 @@
 
 .product-image {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
   object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .product-info-section {
@@ -60,78 +72,109 @@
 
 .product-info-section h1 {
   color: #4a4a4a;
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
 }
 
 .product-price {
-  font-size: 24px;
+  font-size: 28px;
   color: #4a4a4a;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
 }
 
 .product-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .product-tag {
-  background-color: #fff4b5;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 13px;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
+  padding: 10px 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
   color: #4a4a4a;
+  box-shadow: 0 2px 8px rgba(255, 244, 181, 0.4);
 }
 
 .product-description h3,
 .seller-info h3 {
   color: #4a4a4a;
   font-size: 18px;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-top: 24px;
 }
 
 .product-description p {
   color: #666;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .seller-info p {
   color: #666;
+  font-size: 15px;
 }
 
 .product-actions {
   display: flex;
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 35px;
   flex-wrap: wrap;
 }
 
 .action-btn {
-  padding: 12px 24px;
+  padding: 14px 28px;
   border: 2px solid #f8c8dc;
-  border-radius: 12px;
+  border-radius: 14px;
   background-color: #ffffff;
   color: #4a4a4a;
   font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
   text-decoration: none;
 }
 
 .action-btn:hover {
-  background-color: #fff4b5;
+  transform: translateY(-2px);
+}
+
+.buy-now-btn {
+  background: linear-gradient(135deg, #f8c8dc 0%, #ffe8f0 100%);
+  border-color: #f8c8dc;
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(248, 200, 220, 0.5);
+}
+
+.buy-now-btn:hover {
+  background: linear-gradient(135deg, #e8b4d0 0%, #ffd4e8 100%);
+  box-shadow: 0 8px 24px rgba(248, 200, 220, 0.6);
+}
+
+.contact-btn {
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
+  border-color: #ffe082;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(255, 244, 181, 0.5);
+}
+
+.contact-btn:hover {
+  background: linear-gradient(135deg, #ffe082 0%, #fff4b5 100%);
+  box-shadow: 0 8px 24px rgba(255, 224, 130, 0.6);
 }
 
 .favorite-active {
-  background-color: #f8c8dc;
+  background: linear-gradient(135deg, #f8c8dc 0%, #ffe8f0 100%);
 }
 
 .edit-btn {
-  background-color: #fff4b5;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
   border-color: #ffe082;
 }
 
@@ -144,10 +187,11 @@
 }
 
 .comments-section {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff 0%, #fffef5 100%);
+  border-radius: 24px;
+  padding: 45px;
+  box-shadow: 0 8px 32px rgba(248, 200, 220, 0.2);
+  border: 2px solid rgba(248, 200, 220, 0.25);
 }
 
 /* Mobile Responsive */

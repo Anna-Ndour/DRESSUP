@@ -2,10 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-/**
- * Register a new user
- * POST /api/auth/register
- */
+// Register new user
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -27,7 +24,6 @@ exports.register = async (req, res) => {
       favorites: []
     });
 
-    // Return user without password
     res.status(201).json({
       id: user._id,
       username: user.username,
@@ -39,21 +35,16 @@ exports.register = async (req, res) => {
   }
 };
 
-/**
- * Login user and return JWT token
- * POST /api/auth/login
- */
+// Login user and return JWT token
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
-
-    // Compare password
+   
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid email or password" });
@@ -81,13 +72,10 @@ exports.login = async (req, res) => {
   }
 };
 
-/**
- * Get current logged-in user
- * GET /api/auth/me
- */
+// Get current logged-in user
 exports.getMe = async (req, res) => {
   try {
-    // userId is attached by authMiddleware
+    // userId attached by authMiddleware
     const user = await User.findById(req.userId).select("-password");
     
     if (!user) {

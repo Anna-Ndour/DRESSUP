@@ -1,47 +1,52 @@
-/* Add Product Page Styles */
+
 .add-product-page {
   min-height: calc(100vh - 80px);
-  background-color: #fafafa;
+  background: linear-gradient(180deg, #f8c8dc 0%, #ffe8f0 50%, #f8c8dc 100%);
   padding: 40px 20px;
+  padding-top: 80px;
 }
 
 .add-product-container {
-  max-width: 700px;
+  max-width: 750px;
   margin: 0 auto;
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #fff4b5 0%, #fff9db 100%);
+  padding: 50px 45px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(255, 244, 181, 0.3);
+  border: 2px solid #ffe082;
 }
 
 .add-product-container h1 {
   color: #4a4a4a;
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
   text-align: center;
+  letter-spacing: -0.5px;
 }
 
 .add-product-subtitle {
-  color: #666;
+  color: #999;
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 14px;
+  margin-bottom: 35px;
+  font-size: 15px;
 }
 
 .add-product-error {
-  background-color: #ffe0e0;
+  background-color: #fff0f0;
   color: #d32f2f;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 25px;
   font-size: 14px;
   text-align: center;
+  border: 1px solid #ffcdd2;
 }
 
 .add-product-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .form-row {
@@ -53,74 +58,89 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .form-group label {
   color: #4a4a4a;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 14px;
+  padding: 14px 18px;
+  border: 2px solid #e8e8e8;
+  border-radius: 14px;
+  font-size: 15px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
   font-family: inherit;
+  background-color: #fafafa;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: #f8c8dc;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(248, 200, 220, 0.15);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .form-group small {
   color: #999;
   font-size: 12px;
+  font-style: italic;
 }
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   justify-content: flex-end;
   margin-top: 20px;
 }
 
 .cancel-btn {
-  padding: 12px 24px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
+  padding: 14px 28px;
+  border: 2px solid #e8e8e8;
+  border-radius: 14px;
   background-color: #ffffff;
   color: #4a4a4a;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .cancel-btn:hover {
   background-color: #f5f5f5;
+  border-color: #d0d0d0;
 }
 
 .submit-btn {
-  padding: 12px 24px;
+  padding: 14px 28px;
   border: none;
-  border-radius: 12px;
-  background-color: #f8c8dc;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
   color: #4a4a4a;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(255, 244, 181, 0.5);
+  border: 2px solid #ffe082;
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: #e8b4d0;
+  background: linear-gradient(135deg, #ffe082 0%, #fff4b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 224, 130, 0.6);
 }
 
 .submit-btn:disabled {

@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getSocket } from "../services/socket";
 import { messagesAPI } from "../services/api";
 import "./Messages.css";
 
-/**
- * Messages Page
- * Real-time messaging interface with conversation list and chat window
- */
 const Messages = () => {
   const { user } = useAuth();
   const socket = getSocket();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [conversations, setConversations] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -20,32 +19,101 @@ const Messages = () => {
 
   const messagesEndRef = useRef(null);
 
-  /**
-   * Fetch conversations on mount
-   */
+  const contactUserId = searchParams.get("contact");
+
   useEffect(() => {
     if (user) {
       fetchConversations();
     }
   }, [user]);
 
-  /**
-   * Listen for real-time messages
-   */
+  useEffect(() => {
+    if (contactUserId && user) {
+      fetchMessagesAndSelect(contactUserId);
+    }
+  }, [contactUserId, user]);
+
+  const fetchMessagesAndSelect = async (otherUserId) => {
+    try {
+      setLoading(true);
+      
+      const response = await messagesAPI.getByUser(otherUserId);
+      
+      if (response.data.length > 0) {
+        const msg = response.data[0];
+        const otherUser = msg.senderId._id === user._id ? msg.receiverId : msg.senderId;
+        setSelectedUser({
+          _id: otherUser._id,
+          username: otherUser.username || "User"
+        });
+        setMessages(response.data);
+        
+        setConversations(prev => {
+          const exists = prev.some(c => c._id === otherUser._id);
+          if (!exists) {
+            return [...prev, { _id: otherUser._id, username: otherUser.username || "User" }];
+          }
+          return prev;
+        });
+      } else {
+        const allConvResponse = await messagesAPI.getConversations();
+        const targetConv = allConvResponse.data.find(c => c._id === otherUserId);
+        if (targetConv) {
+          setSelectedUser(targetConv);
+          setConversations(allConvResponse.data);
+        } else {
+          setSelectedUser({
+            _id: otherUserId,
+            username: "Seller"
+          });
+          setConversations(prev => {
+            const exists = prev.some(c => c._id === otherUserId);
+            if (!exists) {
+              return [...prev, { _id: otherUserId, username: "Seller" }];
+            }
+            return prev;
+          });
+        }
+        setMessages([]);
+      }
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+      
+      setConversations(prev => {
+        const exists = prev.some(c => c._id === otherUserId);
+        if (!exists) {
+          return [...prev, { _id: otherUserId, username: "Seller" }];
+        }
+        return prev;
+      });
+      
+      setSelectedUser({
+        _id: otherUserId,
+        username: "Seller"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!socket) return;
 
     const handleMessageReceived = (message) => {
-      // Add received message to current conversation if from selected user
+      console.log("Received message:", message);
+      
       if (selectedUser && message.senderId._id === selectedUser._id) {
         setMessages((prev) => [...prev, message]);
       }
 
-      // Add to conversations if not already there
       setConversations((prev) => {
-        const exists = prev.some((c) => c._id === message.senderId._id);
+        const otherUserId = message.senderId._id;
+        const exists = prev.some((c) => c._id === otherUserId);
         if (!exists) {
-          return [...prev, { _id: message.senderId._id, username: message.senderId.username }];
+          return [...prev, { 
+            _id: otherUserId, 
+            username: message.senderId.username || "User" 
+          }];
         }
         return prev;
       });
@@ -58,30 +126,17 @@ const Messages = () => {
     };
   }, [socket, selectedUser]);
 
-  /**
-   * Scroll to bottom when new messages arrive
-   */
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const fetchConversations = async () => {
     try {
-      // Get all users as conversations (simplified approach)
-      // In production, you'd have a dedicated conversations endpoint
-      const response = await messagesAPI.getByUser(user._id);
-      // Extract unique users from messages
-      const userMap = new Map();
-      response.data.forEach((msg) => {
-        const otherUserId = msg.senderId._id === user._id ? msg.receiverId._id : msg.senderId._id;
-        const otherUserName = msg.senderId._id === user._id ? msg.receiverId.username : msg.senderId.username;
-        if (!userMap.has(otherUserId)) {
-          userMap.set(otherUserId, { _id: otherUserId, username: otherUserName });
-        }
-      });
-      setConversations(Array.from(userMap.values()));
+      const response = await messagesAPI.getConversations();
+      setConversations(response.data);
     } catch (error) {
       console.error("Error fetching conversations:", error);
+      setConversations([]);
     }
   };
 
@@ -90,7 +145,20 @@ const Messages = () => {
       setLoading(true);
       const response = await messagesAPI.getByUser(otherUserId);
       setMessages(response.data);
-      setSelectedUser(conversations.find((c) => c._id === otherUserId));
+      
+      const foundUser = conversations.find((c) => c._id === otherUserId);
+      if (foundUser) {
+        setSelectedUser(foundUser);
+      } else {
+        if (response.data.length > 0) {
+          const msg = response.data[0];
+          const otherUser = msg.senderId._id === user._id ? msg.receiverId : msg.senderId;
+          setSelectedUser({
+            _id: otherUser._id,
+            username: otherUser.username || "User"
+          });
+        }
+      }
     } catch (error) {
       console.error("Error fetching messages:", error);
     } finally {
@@ -108,10 +176,8 @@ const Messages = () => {
     };
 
     try {
-      // Send via API (saves to DB)
       const response = await messagesAPI.send(messageData);
       
-      // Emit via Socket.io for real-time delivery
       if (socket) {
         socket.emit("send-message", {
           senderId: user._id,
@@ -120,9 +186,16 @@ const Messages = () => {
         });
       }
 
-      // Add to local messages
       setMessages((prev) => [...prev, response.data]);
       setNewMessage("");
+      
+      setConversations(prev => {
+        const exists = prev.some(c => c._id === selectedUser._id);
+        if (!exists) {
+          return [...prev, { _id: selectedUser._id, username: selectedUser.username }];
+        }
+        return prev;
+      });
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -134,7 +207,7 @@ const Messages = () => {
         <h1>Messages</h1>
 
         <div className="messages-layout">
-          {/* Conversations List */}
+      
           <div className="conversations-panel">
             <h2>Conversations</h2>
             {conversations.length === 0 ? (
@@ -161,7 +234,6 @@ const Messages = () => {
             )}
           </div>
 
-          {/* Chat Window */}
           <div className="chat-panel">
             {selectedUser ? (
               <>
@@ -216,7 +288,7 @@ const Messages = () => {
               </>
             ) : (
               <div className="no-chat-selected">
-                <p>Select a conversation to start messaging</p>
+                <p>Select a seller to start messaging</p>
               </div>
             )}
           </div>

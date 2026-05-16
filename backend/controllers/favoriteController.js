@@ -1,10 +1,7 @@
 const User = require("../models/User");
 const Product = require("../models/Product");
 
-/**
- * Add a product to favorites
- * POST /api/favorites/:productId
- */
+// Add a product to favorites
 exports.addToFavorites = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -21,7 +18,7 @@ exports.addToFavorites = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if already favorited (prevent duplicates)
+    // Check if already favorited to prevent duplicates
     if (user.favorites.includes(productId)) {
       return res.status(400).json({ error: "Product already in favorites" });
     }
@@ -30,7 +27,7 @@ exports.addToFavorites = async (req, res) => {
     user.favorites.push(productId);
     await user.save();
 
-    // Return updated user with favorites populated
+
     const updatedUser = await User.findById(req.userId)
       .populate("favorites", "title price image size category");
 
@@ -40,10 +37,6 @@ exports.addToFavorites = async (req, res) => {
   }
 };
 
-/**
- * Remove a product from favorites
- * DELETE /api/favorites/:productId
- */
 exports.removeFromFavorites = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -54,13 +47,11 @@ exports.removeFromFavorites = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Remove from favorites
     user.favorites = user.favorites.filter(
       (id) => id.toString() !== productId
     );
     await user.save();
 
-    // Return updated user with favorites populated
     const updatedUser = await User.findById(req.userId)
       .populate("favorites", "title price image size category");
 
@@ -70,10 +61,7 @@ exports.removeFromFavorites = async (req, res) => {
   }
 };
 
-/**
- * Get user's favorite products
- * GET /api/favorites
- */
+// Get user's favorite products
 exports.getFavorites = async (req, res) => {
   try {
     const user = await User.findById(req.userId)

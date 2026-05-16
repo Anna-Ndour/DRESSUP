@@ -1,9 +1,7 @@
-import axios from "axios";
+const { VITE_API_URL } = import.meta.env;
 
-// Base URL for the backend API
-const API_URL = "http://localhost:5000/api";
+const API_URL = VITE_API_URL || "http://localhost:5000/api";
 
-// Create axios instance with default config
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -11,7 +9,6 @@ const api = axios.create({
   }
 });
 
-// Add auth token to requests if available
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -23,14 +20,12 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Auth API
 export const authAPI = {
   register: (data) => api.post("/auth/register", data),
   login: (data) => api.post("/auth/login", data),
   getMe: () => api.get("/auth/me")
 };
 
-// Products API
 export const productsAPI = {
   getAll: (search = "", category = "") => {
     let url = "/products";
@@ -46,23 +41,21 @@ export const productsAPI = {
   delete: (id) => api.delete(`/products/${id}`)
 };
 
-// Comments API
 export const commentsAPI = {
   getByProduct: (productId) => api.get(`/comments/product/${productId}`),
   add: (data) => api.post("/comments", data)
 };
 
-// Favorites API
 export const favoritesAPI = {
   getAll: () => api.get("/favorites"),
   add: (productId) => api.post(`/favorites/${productId}`),
   remove: (productId) => api.delete(`/favorites/${productId}`)
 };
 
-// Messages API
 export const messagesAPI = {
   getByUser: (otherUserId) => api.get(`/messages/${otherUserId}`),
-  send: (data) => api.post("/messages", data)
+  send: (data) => api.post("/messages", data),
+  getConversations: () => api.get("/messages/conversations")
 };
 
 export default api;

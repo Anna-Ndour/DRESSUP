@@ -1,8 +1,112 @@
-/* Home Page Styles */
+
 .home {
   min-height: 100vh;
-  background-color: #fafafa;
+  background: linear-gradient(180deg, #f8c8dc 0%, #ffe8f0 50%, #f8c8dc 100%);
   padding-bottom: 40px;
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.home-hero {
+  text-align: center;
+  padding: 60px 30px;
+  background: linear-gradient(135deg, #f8c8dc 0%, #fff4b5 50%, #f8c8dc 100%);
+  border-radius: 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 30px rgba(248, 200, 220, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 244, 181, 0.5);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 250px;
+  height: 250px;
+  background: rgba(248, 200, 220, 0.5);
+  border-radius: 50%;
+  filter: blur(50px);
+}
+
+.home-hero h1 {
+  color: #4a4a4a;
+  font-size: 46px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.home-hero p {
+  color: #4a4a4a;
+  font-size: 20px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.search-results-info {
+  margin-top: 18px;
+  color: #4a4a4a;
+  font-size: 16px;
+}
+
+.search-results-info strong {
+  color: #4a4a4a;
+  font-weight: 700;
+}
+
+.home-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 12px 24px;
+  border: 2px solid #ffe082;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff4b5 0%, #fff9db 100%);
+  color: #4a4a4a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(255, 244, 181, 0.4);
+}
+
+.filter-btn:hover {
+  background: linear-gradient(135deg, #ffe082 0%, #fff4b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 224, 130, 0.5);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #f8c8dc 0%, #ffe8f0 100%);
+  border-color: #f8c8dc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(248, 200, 220, 0.6);
 }
 
 .home-container {
@@ -31,11 +135,17 @@
   font-size: 18px;
 }
 
-/* Search Bar */
-.home-search {
-  margin-bottom: 20px;
+.search-results-info {
+  margin-top: 15px;
+  color: #4a4a4a;
+  font-size: 16px;
 }
 
+.search-results-info strong {
+  color: #f8c8dc;
+}
+
+/* Search Bar */
 .search-bar {
   width: 100%;
   padding: 14px 20px;

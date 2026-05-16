@@ -4,16 +4,10 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-/**
- * POST /api/comments
- * Add a comment to a product (protected)
- */
+// POST /api/comments
 router.post("/", authMiddleware, commentController.addComment);
 
-/**
- * GET /api/comments/product/:productId
- * Get all comments for a product (public)
- */
+// GET /api/comments/product/:productId
 router.get("/product/:productId", commentController.getCommentsByProduct);
 
 module.exports = router;

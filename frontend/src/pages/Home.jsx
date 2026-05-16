@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { productsAPI } from "../services/api";
 import ProductCard from "../components/ProductCard";
 import "./Home.css";
 
-/**
- * Home Page
- * Displays product marketplace with filters and search
- */
 const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Categories for filtering
+  const urlSearchTerm = searchParams.get("search") || "";
+
   const categories = [
     "All",
     "Women",
@@ -28,17 +25,14 @@ const Home = () => {
     "Pants"
   ];
 
-  /**
-   * Fetch all products from API
-   */
   useEffect(() => {
     fetchProducts();
-  }, [searchTerm, selectedCategory]);
+  }, [urlSearchTerm, selectedCategory]);
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await productsAPI.getAll(searchTerm, selectedCategory);
+      const response = await productsAPI.getAll(urlSearchTerm, selectedCategory);
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -47,16 +41,6 @@ const Home = () => {
     }
   };
 
-  /**
-   * Handle search input change
-   */
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  /**
-   * Handle category filter change
-   */
   const handleCategoryChange = (category) => {
     setSelectedCategory(category === "All" ? "" : category);
   };
@@ -64,24 +48,16 @@ const Home = () => {
   return (
     <div className="home">
       <div className="home-container">
-        {/* Hero Section */}
         <div className="home-hero">
           <h1>Welcome to DressUp</h1>
           <p>Buy and sell second-hand clothing</p>
+          {urlSearchTerm && (
+            <p className="search-results-info">
+              Search results for: <strong>{urlSearchTerm}</strong>
+            </p>
+          )}
         </div>
 
-        {/* Search Bar */}
-        <div className="home-search">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            value={searchTerm}
-            onChange={handleSearch}
-            className="search-bar"
-          />
-        </div>
-
-        {/* Category Filters */}
         <div className="home-filters">
           {categories.map((category) => (
             <button
@@ -94,7 +70,6 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Products Grid */}
         <div className="home-products">
           {loading ? (
             <div className="loading">Loading products...</div>
