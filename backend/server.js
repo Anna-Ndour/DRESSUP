@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // Initialize Socket.io with CORS configuration
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "https://dressup-l4drcvb28-anna-ndours-projects.vercel.app",
     methods: ["GET", "POST"],
     credentials: true
   }
