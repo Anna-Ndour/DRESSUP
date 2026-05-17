@@ -26,7 +26,7 @@ socketServer(io);
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:3000", "https://dressup-cpxpk367o-anna-ndours-projects.vercel.app"],
+  origin: ["http://localhost:5173", "http://localhost:3000", "https://dressup-two.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
