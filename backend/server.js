@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // Initialize Socket.io with CORS configuration
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "https://dressup-two.vercel.app",
+    origin: process.env.CLIENT_URL ,
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -26,7 +26,7 @@ socketServer(io);
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:3000", "https://dressup-two.vercel.app"],
+  origin: process.env.CLIENT_URL,
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
